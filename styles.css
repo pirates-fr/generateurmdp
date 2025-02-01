@@ -1,0 +1,113 @@
+body {
+    font-family: 'Orbitron', sans-serif;
+    background: radial-gradient(circle, #1a1a1a, #001f3f);
+    color: #00ffcc;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+}
+
+#generator-container {
+    background: rgba(0, 0, 0, 0.95);
+    padding: 50px;
+    border-radius: 25px;
+    box-shadow: 0 0 40px 8px #00ffcc;
+    width: 450px;
+    text-align: center;
+    animation: fadeIn 1.2s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h1 {
+    font-size: 30px;
+    text-transform: uppercase;
+    color: #00ffcc;
+    margin-bottom: 30px;
+    text-shadow: 0 0 25px #00ffcc, 0 0 50px #00ffcc, 0 0 75px #00ffcc;
+    letter-spacing: 2px;
+    animation: textGlow 2s ease-in-out infinite alternate;
+}
+
+button {
+    background: linear-gradient(45deg, #00ffcc, #0077cc);
+    border: none;
+    padding: 16px 28px;
+    font-size: 22px;
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+    border-radius: 12px;
+    box-shadow: 0 0 25px #00ffcc, 0 0 50px #00ffcc;
+    transition: all 0.4s ease-in-out;
+    width: 100%;
+    text-align: center;
+    margin-top: 20px;
+    animation: buttonPulse 2s infinite alternate;
+}
+
+button:hover {
+    background: linear-gradient(45deg, #0077cc, #00ffcc);
+    box-shadow: 0 0 35px #00ffcc;
+    transform: scale(1.1) rotate(5deg);
+}
+
+input {
+    width: 100%;
+    padding: 16px;
+    margin-top: 20px;
+    font-size: 24px;
+    text-align: center;
+    background: #111111;
+    border: 2px solid #00ffcc;
+    color: #00ffcc;
+    border-radius: 12px;
+    box-shadow: 0 0 20px #00ffcc;
+    transition: all 0.3s ease;
+    animation: inputFocusAnimation 1s ease-in-out infinite alternate;
+}
+
+input:focus {
+    outline: none;
+    border-color: #00ff99;
+    box-shadow: 0 0 20px 4px #00ff99;
+}
+
+#copy-message {
+    font-size: 16px;
+    margin-top: 15px;
+    color: #00ffcc;
+    opacity: 0.8;
+    animation: fadeMessage 1.2s ease-in-out infinite alternate;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-15px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes textGlow {
+    0% { text-shadow: 0 0 30px #00ffcc, 0 0 60px #00ffcc, 0 0 90px #00ffcc; }
+    100% { text-shadow: 0 0 40px #ffffff, 0 0 80px #ffffff, 0 0 120px #00ffcc; }
+}
+
+@keyframes buttonPulse {
+    0% { transform: scale(1); }
+    100% { transform: scale(1.1); }
+}
+
+@keyframes inputFocusAnimation {
+    0% { box-shadow: 0 0 15px #00ffcc; }
+    100% { box-shadow: 0 0 20px #00ff99; }
+}
+
+@keyframes fadeMessage {
+    0% { opacity: 0.8; }
+    100% { opacity: 1; }
+}
