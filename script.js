@@ -1,5 +1,10 @@
 function generatePassword() {
-    const length = document.getElementById("length").value;
+    let length = parseInt(document.getElementById("length").value, 10);
+    if (isNaN(length) || length < 8 || length > 32) {
+        alert("Veuillez choisir une longueur entre 8 et 32 caractères.");
+        return;
+    }
+
     const useUppercase = document.getElementById("uppercase").checked;
     const useLowercase = document.getElementById("lowercase").checked;
     const useNumbers = document.getElementById("numbers").checked;
@@ -17,27 +22,45 @@ function generatePassword() {
     }
 
     let password = "";
-    for (let i = 0; i < length; i++) {
+    let mandatoryChars = [];
+
+    function getRandomChar(set) {
+        return set.charAt(Math.floor(Math.random() * set.length));
+    }
+
+    if (useUppercase) mandatoryChars.push(getRandomChar("ABCDEFGHIJKLMNOPQRSTUVWXYZ"));
+    if (useLowercase) mandatoryChars.push(getRandomChar("abcdefghijklmnopqrstuvwxyz"));
+    if (useNumbers) mandatoryChars.push(getRandomChar("0123456789"));
+    if (useSymbols) mandatoryChars.push(getRandomChar("!@#$%^&*()_+[]{}|;:,.<>?"));
+
+    for (let i = mandatoryChars.length; i < length; i++) {
         password += chars.charAt(Math.floor(Math.random() * chars.length));
     }
+
+    password = (password + mandatoryChars.join("")).split("").sort(() => Math.random() - 0.5).join("");
 
     const passwordField = document.getElementById("password");
     passwordField.value = password;
 
-    const copyBtn = document.getElementById("copy-btn");
-    copyBtn.innerText = "Cliquez pour copier";
-
-    copyBtn.onclick = function () {
-        passwordField.select();
-        navigator.clipboard.writeText(passwordField.value)
-            .then(() => {
-                copyBtn.innerText = "✅ Copié !";
-                setTimeout(() => {
-                    copyBtn.innerText = "Cliquez pour copier";
-                }, 2000);
-            })
-            .catch(err => {
-                copyBtn.innerText = "❌ Erreur";
-            });
-    };
+    passwordField.style.opacity = "0";
+    setTimeout(() => {
+        passwordField.style.opacity = "1";
+    }, 100);
 }
+
+document.getElementById("copy-btn").addEventListener("click", function () {
+    const passwordField = document.getElementById("password");
+    if (passwordField.value === "") return;
+
+    passwordField.select();
+    navigator.clipboard.writeText(passwordField.value)
+        .then(() => {
+            this.innerText = "✅ Copié !";
+            setTimeout(() => {
+                this.innerText = "Cliquez pour copier";
+            }, 2000);
+        })
+        .catch(() => {
+            this.innerText = "❌ Erreur";
+        });
+});
